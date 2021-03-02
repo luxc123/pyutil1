@@ -1,4 +1,3 @@
-package com.robot.epc.base.config;
 
 import com.robot.epc.base.dao.DictMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +20,6 @@ public class MyWebSocket {
     public static Map<String, MyWebSocket> clients = new ConcurrentHashMap<String, MyWebSocket>();
     public Session session;
     private String username;
-
-    @Autowired
-    private DictMapper dictMapper;
 
     @OnOpen
     public void onOpen(@PathParam("username") String username, Session session) {
@@ -51,10 +47,8 @@ public class MyWebSocket {
     public void sendMessage() {
         // 向所有连接websocket的客户端发送消息
         // 可以修改为对某个客户端发消息
-//        List<DictEntity> all = dictMapper.getAll(new DictDTO());
         for (MyWebSocket item : clients.values()) {
             item.session.getAsyncRemote().sendText("测试!!@123");
-//            item.session.getAsyncRemote().sendObject(all);
         }
     }
 
